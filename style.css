@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+    box-sizing: border-box;
+}
+
+:root {
+    --cor0: #0097e6;
+    --cor1: #2ba9ea;
+    --cor2: #45f391;
+    --cor3: #828282;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.scoreboard {
+    width: 200px;
+    height: 200px;
+}
+
+.player-points-wrapper {
+    display: flex;
+}
