@@ -1,54 +1,56 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Noughts and Crosses</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="console">
-        <div class="player-box">Jogador 1</div>
-        <div class="player-box player2-box-wrapper">
-            <span>Jogador 2</span>
-            <div class="switch">#</div>
+        <input class="player1-box" placeholder="Jogador 1">
+        <div class="player2-box-wrapper">
+            <input class="player2-box" placeholder="Jogador 2">
+            <div class="switch">
+                <div class="switch-ball"></div>
+            </div>
         </div>
         <p class="game-mode-title">Tipo de partida</p>
         <div class="game-mode-wrapper">
             <span class="game-mode-text">Melhor de 3</span>
-            <div class="switch">#</div>
+            <div class="switch switch-white">
+                <div class="switch-ball"></div>
+            </div>
             <span class="game-mode-text">Melhor de 2</span>
         </div>
         <div class="play-button">
             Jogar
         </div>
         <p class="match-history-title">Histórico de Partidas</p>
-        <div class="match-history-wrapper">
-            <div class="match-history-item match-history-item1">
+        <ul class="match-history-wrapper">
+            <li class="match-history-item match-history-item1">
                 <div class="winner-text-hitory">
-                    <p class="winner-title-history">Vencedor</p>
+                    <p class="winner-title-history">Jogador 1</p>
                     <p>Primeiro Quadrado</p>
                 </div>
                 <div class="scenario">
                     <p class="scenario-text">Cenário</p>
-                    <div class="last-game">
-                        #
+                    <div class="scenario-box scenario-small">
+                        <div class="scenario-field">X</div>
+                        <div class="scenario-field">O</div>
+                        <div class="scenario-field"></div>
+                        <div class="scenario-field"></div>
+                        <div class="scenario-field"></div>
+                        <div class="scenario-field">O</div>
+                        <div class="scenario-field">X</div>
+                        <div class="scenario-field"></div>
+                        <div class="scenario-field">X</div>
                     </div>
                 </div>
-            </div>
-            <div class="match-history-item match-history-item2">
-                <div class="winner-text-hitory">
-                    <p class="winner-title-history">Vencedor</p>
-                    <p>Primeiro Quadrado</p>
-                </div>
-                <div class="scenario">
-                    <span class="scenario-text">Cenário</span>
-                    <div class="last-game">
-                        #
-                    </div>
-                </div>
-            </div>
-        </div>
+            </li>
+        </ul>
         <div class="restart-button">
             Reiniciar
         </div>
@@ -62,22 +64,16 @@
                 <div class="player-score player-2-score">01</div>
             </div>
         </div>
-        <div class="battle-field">
-            <div class="top-boxes-wrapper">
-                <div class="box box-1">X</div>
-                <div class="box box-2">O</div>
-                <div class="box box-3">#</div>
-            </div>
-            <div class="center-boxes-wrapper">
-                <div class="box box-4">#</div>
-                <div class="box box-5">#</div>
-                <div class="box box-6">#</div>
-            </div>
-            <div class="botton-boxes-wrapper">
-                <div class="box box-7">#</div>
-                <div class="box box-8">#</div>
-                <div class="box box-9">#</div>
-            </div>
+        <div class="scenario-box">
+            <div class="scenario-field">X</div>
+            <div class="scenario-field">O</div>
+            <div class="scenario-field"></div>
+            <div class="scenario-field"></div>
+            <div class="scenario-field"></div>
+            <div class="scenario-field">O</div>
+            <div class="scenario-field">X</div>
+            <div class="scenario-field"></div>
+            <div class="scenario-field">X</div>
         </div>
     </div>
     <div class="history">
@@ -141,4 +137,5 @@
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>
