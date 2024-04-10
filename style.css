@@ -94,7 +94,7 @@ body {
 }
 
 .switch:hover .switch-ball {
-    right: 4px;
+    right: 2px;
 }
 
 .switch-ball {
@@ -284,6 +284,7 @@ body {
     align-items: center;
     font-size: clamp(50px, 5vw, 130px);
     color: var(--cor3);
+    cursor: pointer;
 }
 
 .scenario-box {
@@ -324,6 +325,12 @@ body {
     font-size: clamp(13px, 2vw, 70px);
 }
 
+ol {
+    max-height: 87vh;
+    overflow-y: auto;
+    padding: 0 0.5vw 0 0;
+}
+
 .play-history-Wraper {
     margin: 1vw 0 0 0;
     background-color: var(--cor4);
@@ -332,6 +339,7 @@ body {
     width: 28vw;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .play-symbol {
@@ -349,6 +357,7 @@ body {
 .player-move-location-text {
     color: var(--cor0);
     font-size: clamp(12px, 1vw, 50px);
+    font-weight: 400;
 }
 
 @media (max-width: 900px) {
