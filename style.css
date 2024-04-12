@@ -79,10 +79,13 @@ body {
     height: 100%;
 }
 
+input::-webkit-input-placeholder {
+    font-size: 13px;
+}
+
 .switch {
-    width: 56px;
-    min-width: 56px;
-    height: 32px;
+    min-width: 33px;
+    height: 20px;
     border-radius: 100px;
     background-color: var(--cor0);
     display: flex;
@@ -98,12 +101,12 @@ body {
 }
 
 .switch-ball {
-    height: 24px;
-    width: 24px;
+    height: 12px;
+    width: 12px;
     border-radius: 100%;
     background-color: var(--cor4);
     position: absolute;
-    right: 26px;
+    right: 15px;
     transition: 300ms;
 }
 
@@ -199,7 +202,7 @@ body {
     background-color: var(--cor4);
     border-radius: 10px;
     padding: 1vw;
-    font-size: clamp(12px, 1vw, 50px);
+    font-size: clamp(11px, 1vw, 50px);
 }
 
 .winner-title-history {
@@ -271,20 +274,25 @@ body {
 .player-score {
     color: var(--cor1);
     font-weight: 900;
-    font-size: clamp(25px, 2vw, 100px);
+    font-size: clamp(20px, 2vw, 100px);
+}
+
+span {
+    font-size: clamp(12px, 2vw, 75px);
 }
 
 .scenario-field {
     width: 9vw;
     height: 9vw;
     background-color: var(--cor4);
-    border-radius: 15px;
+    border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: clamp(50px, 5vw, 130px);
+    font-size: clamp(30px, 4vw, 130px);
     color: var(--cor3);
     cursor: pointer;
+    user-select: none;
 }
 
 .scenario-box {

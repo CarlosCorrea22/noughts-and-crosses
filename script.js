@@ -1,5 +1,10 @@
 const game = {
-    currentMove: 'X'
+    start: true,
+    currentMove: 'X',
+    players: {
+        score1: 0,
+        score2: 0,
+    }
 }
 
 function getField(fieldNumber) {
@@ -8,9 +13,9 @@ function getField(fieldNumber) {
 }
 
 function toggleCurrentMove() {
-    if (game.currentMove == 'X') {
+    if (game.currentMove === 'X') {
         game.currentMove = 'O'
-    } else if (game.currentMove == 'O') {
+    } else if (game.currentMove === 'O') {
         game.currentMove = 'X'
     }
 }
@@ -19,8 +24,8 @@ function verifyFields(firstField, secondField, thirdField) {
     const $fieldList = document.querySelectorAll('.scenario-field-big')
 
     const hasWinner = $fieldList[firstField].textContent != ''
-        && $fieldList[firstField].textContent == $fieldList[secondField].textContent
-        && $fieldList[secondField].textContent == $fieldList[thirdField].textContent
+        && $fieldList[firstField].textContent === $fieldList[secondField].textContent
+        && $fieldList[secondField].textContent === $fieldList[thirdField].textContent
 
     return hasWinner
 }
@@ -47,12 +52,69 @@ function getWinner() {
     return ''
 }
 
+function addPlayerScore(winner) {
+    if (winner === 'X') {
+        game.players.score1++
+    } else if (winner === 'O') {
+        game.players.score2++
+    }
+}
+
+function printPlayerScore() {
+    const [ $score1, $score2 ] = document.querySelectorAll('.player-score')
+
+    $score1.textContent = game.players.score1
+    $score2.textContent = game.players.score2
+}
+
+function resetBoard () {
+    const $fieldList = document.querySelectorAll('.scenario-field-big')
+
+    for (const $field of $fieldList) {
+        $field.textContent = ''
+    }
+}
+
+function getPlayerName(move) {
+    if(move === 'X') {
+        const $inputPlayer1 = document.querySelector('.player1-box')
+
+        return $inputPlayer1.value
+    } else if (move ==='O') {
+        const $inputPlayer2 = document.querySelector('.player2-box')
+
+        return $inputPlayer2.value
+    }
+}
+
+function printWinnerName(winnerName) {
+    const $winnerField = document.querySelector('.winner-field')
+    $winnerField.textContent = winnerName
+}
+
 for (let i = 0; i < 9; i++) {
     const $field = getField(i)
 
     $field.addEventListener('click', function () {
+        if ($field.textContent !== '' || game.start === false) return
         $field.textContent = game.currentMove
-        console.log(getWinner())
+
+        const winner = getWinner()
+
+        if (winner !== '') {
+            addPlayerScore(winner)
+            printPlayerScore()
+            setTimeout(resetBoard, 1000)
+            game.start = false
+            const winnerName = getPlayerName(winner)
+            printWinnerName(winnerName)
+            setTimeout(function(){
+                game.start = true
+            }, 1000)
+            return
+        }
+        
         toggleCurrentMove()
     })
 }
+
