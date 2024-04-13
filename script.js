@@ -73,6 +73,7 @@ function resetBoard () {
     for (const $field of $fieldList) {
         $field.textContent = ''
     }
+    game.currentMove = 'X'; //caso a proxima rodada tenha que começar com 'X'
 }
 
 function getPlayerName(move) {
@@ -113,8 +114,6 @@ for (let i = 0; i < 9; i++) {
             }, 1000)
             return
         }
-        
         toggleCurrentMove()
     })
 }
-
