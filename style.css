@@ -96,7 +96,7 @@ input::-webkit-input-placeholder {
     border: solid 2px var(--cor0);
 }
 
-.switch:hover .switch-ball {
+.switch-active .switch-ball {
     right: 2px;
 }
 

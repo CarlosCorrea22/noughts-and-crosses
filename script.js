@@ -1,6 +1,9 @@
 const game = {
     start: true,
     currentMove: 'X',
+    bot: {
+        active: false,
+    },
     players: {
         score1: 0,
         score2: 0,
@@ -61,27 +64,27 @@ function addPlayerScore(winner) {
 }
 
 function printPlayerScore() {
-    const [ $score1, $score2 ] = document.querySelectorAll('.player-score')
+    const [$score1, $score2] = document.querySelectorAll('.player-score')
 
     $score1.textContent = game.players.score1
     $score2.textContent = game.players.score2
 }
 
-function resetBoard () {
+function resetBoard() {
     const $fieldList = document.querySelectorAll('.scenario-field-big')
 
     for (const $field of $fieldList) {
         $field.textContent = ''
     }
-    game.currentMove = 'X'; //caso a proxima rodada tenha que começar com 'X'
+    game.currentMove = 'X';
 }
 
 function getPlayerName(move) {
-    if(move === 'X') {
+    if (move === 'X') {
         const $inputPlayer1 = document.querySelector('.player1-box')
 
         return $inputPlayer1.value
-    } else if (move ==='O') {
+    } else if (move === 'O') {
         const $inputPlayer2 = document.querySelector('.player2-box')
 
         return $inputPlayer2.value
@@ -93,27 +96,63 @@ function printWinnerName(winnerName) {
     $winnerField.textContent = winnerName
 }
 
+function configSwitch(query, callback) {
+    const $switch = document.querySelector(query)
+
+    $switch.addEventListener('click', function () {
+        $switch.classList.toggle('switch-active')
+        callback()
+    })
+}
+
+function botMove() {
+    const move = randomNumber(9)
+
+    const $field = getField(move)
+
+    if ($field.textContent !== '') {
+        botMove()
+    }
+
+    play($field)
+}
+
+function randomNumber(max) {
+    const number = Math.floor(Math.random() * max)
+    return number
+}
+
+function play($field) {
+    if ($field.textContent !== '' || game.start === false) return
+    $field.textContent = game.currentMove
+
+    const winner = getWinner()
+
+    if (winner !== '') {
+        addPlayerScore(winner)
+        printPlayerScore()
+        setTimeout(resetBoard, 1000)
+        game.start = false
+        const winnerName = getPlayerName(winner)
+        printWinnerName(winnerName)
+        setTimeout(function () {
+            game.start = true
+        }, 1000)
+        return
+    }
+    toggleCurrentMove()
+}
+
 for (let i = 0; i < 9; i++) {
     const $field = getField(i)
 
     $field.addEventListener('click', function () {
-        if ($field.textContent !== '' || game.start === false) return
-        $field.textContent = game.currentMove
-
-        const winner = getWinner()
-
-        if (winner !== '') {
-            addPlayerScore(winner)
-            printPlayerScore()
-            setTimeout(resetBoard, 1000)
-            game.start = false
-            const winnerName = getPlayerName(winner)
-            printWinnerName(winnerName)
-            setTimeout(function(){
-                game.start = true
-            }, 1000)
-            return
-        }
-        toggleCurrentMove()
+        play($field)
+        botMove()
     })
 }
+
+configSwitch('.switch-bot', function () {
+    game.bot.active = !game.bot.active
+    console.log(game.bot.active)
+})
