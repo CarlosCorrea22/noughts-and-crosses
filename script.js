@@ -76,7 +76,6 @@ function resetBoard() {
     for (const $field of $fieldList) {
         $field.textContent = ''
     }
-    game.currentMove = 'X';
 }
 
 function getPlayerName(move) {
@@ -106,15 +105,37 @@ function configSwitch(query, callback) {
 }
 
 function botMove() {
+    if (!game.bot.active) return; //verifica se o bot está ativado
     const move = randomNumber(9)
 
     const $field = getField(move)
+
+    const canNotPlay = draw()
+
+    if (canNotPlay) return
 
     if ($field.textContent !== '') {
         botMove()
     }
 
     play($field)
+}
+
+function draw() {
+    const $fieldList = document.querySelectorAll('.scenario-field-big')
+    let filledFields = 0
+
+    for (const $field of $fieldList) {
+        if ($field.textContent) filledFields++
+    }
+
+    const winner = getWinner()
+
+    if (filledFields === 9 && !winner) {
+        return true
+    }
+
+    return false
 }
 
 function randomNumber(max) {
@@ -140,6 +161,13 @@ function play($field) {
         }, 1000)
         return
     }
+
+    const hasDraw = draw()
+
+    if (hasDraw) {
+        setTimeout(resetBoard, 1000)
+    }
+
     toggleCurrentMove()
 }
 
@@ -147,8 +175,10 @@ for (let i = 0; i < 9; i++) {
     const $field = getField(i)
 
     $field.addEventListener('click', function () {
-        play($field)
-        botMove()
+        if ($field.textContent === '') { // Verifica se o campo está vazio antes de jogar
+            play($field)
+            botMove()
+        }
     })
 }
 
