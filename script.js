@@ -1,3 +1,5 @@
+const $historyMoveList = document.querySelector('.history-card-list')
+
 const game = {
     start: true,
     currentMove: 'X',
@@ -118,7 +120,7 @@ function botMove() {
         botMove()
     }
 
-    play($field)
+    play($field, move)
 }
 
 function draw() {
@@ -143,12 +145,15 @@ function randomNumber(max) {
     return number
 }
 
-function play($field) {
+function play($field, position) {
     if ($field.textContent !== '' || game.start === false) return
     $field.textContent = game.currentMove
 
     const winner = getWinner()
 
+    const currentPlayerName = getPlayerName(game.currentMove)
+
+    createHistoryMoveCard(game.currentMove, currentPlayerName, position)
     if (winner !== '') {
         addPlayerScore(winner)
         printPlayerScore()
@@ -168,7 +173,32 @@ function play($field) {
         setTimeout(resetBoard, 1000)
     }
 
+
     toggleCurrentMove()
+}
+
+function createHistoryMoveCard(move, player, position) {
+    const positionLabels = [
+        'Primeiro quadrado',
+        'Segundo quadrado',
+        'Terceiro quadrado',
+        'Quarto quadrado',
+        'Quinto quadrado',
+        'Sexto quadrado',
+        'Sétimo quadrado',
+        'Oitavo quadrado',
+        'Nono quadrado'
+    ]
+
+    $historyMoveList.innerHTML += `
+    <li class="play-history-Wrapper">
+    <div class="play-symbol play-symbol1">${move}</div>
+    <div class="play-history-text-wrapper">
+        <p class="play-history-text">${player}</p>
+        <p class="player-move-location-text">${positionLabels[position]}</p>
+    </div>
+    </li>
+    `
 }
 
 for (let i = 0; i < 9; i++) {
@@ -176,7 +206,7 @@ for (let i = 0; i < 9; i++) {
 
     $field.addEventListener('click', function () {
         if ($field.textContent === '') { // Verifica se o campo está vazio antes de jogar
-            play($field)
+            play($field, i)
             botMove()
         }
     })
@@ -184,5 +214,8 @@ for (let i = 0; i < 9; i++) {
 
 configSwitch('.switch-bot', function () {
     game.bot.active = !game.bot.active
-    console.log(game.bot.active)
+})
+
+configSwitch('.switch-white', function () {
+
 })
